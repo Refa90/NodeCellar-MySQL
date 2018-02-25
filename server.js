@@ -15,14 +15,11 @@ var conn =  connection(mysql,{
     user: 'root',
     password : 'root',
     port :3306 , //port mysql
-    database:'nodecellar'
+    database:'winecellar'
 
 },'pool');//or single
 
 app.use(conn);
-
-
-
 
 app.configure(function () {
     app.set('port', process.env.PORT || 3000);
@@ -36,6 +33,8 @@ app.get('/wines/:id', wine.findById);
 app.post('/wines', wine.addWine);
 app.put('/wines/:id', wine.updateWine);
 app.delete('/wines/:id', wine.deleteWine);
+app.get('/wines/:year', wine.findByYear);
+app.get('/wines/:country', wine.findByCountry);
 
 
 http.createServer(app).listen(app.get('port'), function () {

@@ -12,7 +12,7 @@ exports.findById = function(req, res) {
             if(err)
                 console.log("Error Selecting : %s ",err );
 
-            //rows.map((curRow)=> {curRow.description = curRow.description.toString('utf8')});
+            rows.map((curRow)=> {curRow.description = curRow.description.toString('utf8')});
 
             res.send(rows[0]);
 
@@ -21,9 +21,8 @@ exports.findById = function(req, res) {
 
         //console.log(query.sql);
     });
-
-
 };
+
 exports.findAll = function(req, res) {
 
     req.getConnection(function(err,connection){
@@ -34,7 +33,7 @@ exports.findAll = function(req, res) {
             if(err)
                 console.log("Error Selecting : %s ",err );
 
-            //rows.map((curRow)=> {curRow.description = curRow.description.toString('utf8')});
+            rows.map((curRow)=> {curRow.description = curRow.description.toString('utf8')});
 
             res.send(rows);
 
@@ -115,3 +114,43 @@ exports.deleteWine = function(req, res) {
 
     });
 }
+
+exports.findByYear = function(req, res) {
+    var year = req.params.year;
+
+    req.getConnection(function(err,connection){
+
+        var query = connection.query('SELECT * FROM wine WHERE year = ?',[year],function(err,rows)
+        {
+            if(err)
+                console.log("Error Selecting : %s ",err );
+
+            rows.map((curRow)=> {curRow.description = curRow.description.toString('utf8')});
+
+            res.send(rows[0]);
+
+
+        });
+
+        //console.log(query.sql);
+    });
+};
+
+exports.findByCountry = function(req, res) {
+    var country = req.params.country;
+
+    req.getConnection(function(err,connection){
+
+        var query = connection.query('SELECT * FROM wine WHERE country = ?',[country],function(err,rows)
+        {
+            if(err)
+                console.log("Error Selecting : %s ",err );
+
+            rows.map((curRow)=> {curRow.description = curRow.description.toString('utf8')});
+
+            res.send(rows[0]);
+        });
+
+        //console.log(query.sql);
+    });
+};
