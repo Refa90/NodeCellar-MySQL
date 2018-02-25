@@ -2,7 +2,7 @@ window.Wine = Backbone.Model.extend({
 
     urlRoot: "/wines",
 
-    idAttribute: "_id",
+    idAttribute: "id",
 
     initialize: function () {
         this.validators = {};
@@ -42,7 +42,7 @@ window.Wine = Backbone.Model.extend({
     },
 
     defaults: {
-        _id: null,
+        id: null,
         name: "",
         grapes: "",
         country: "USA",
