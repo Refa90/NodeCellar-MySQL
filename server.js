@@ -33,8 +33,8 @@ app.get('/wines/:id', wine.findById);
 app.post('/wines', wine.addWine);
 app.put('/wines/:id', wine.updateWine);
 app.delete('/wines/:id', wine.deleteWine);
-app.get('/wines/:year', wine.findByYear);
-app.get('/wines/:country', wine.findByCountry);
+app.get('/wines/findbyear/:year', wine.findByYear);
+app.get('/wines/findbycountry/:country', wine.findByCountry);
 
 
 http.createServer(app).listen(app.get('port'), function () {
