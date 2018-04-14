@@ -1,13 +1,14 @@
 var express = require('express'),
     path = require('path'),
     http = require('http'),
-    wine = require('./routes/wines');
+    //wine = require('./routes/wines'),
+    wine = require('./routes/wine')//,
+    //test1BigTableQueryHandler = require('./utils/Test1BigTableQueryHandler');
 
 var connection  = require('express-myconnection');
 var mysql = require('mysql');
 
 var app = express();
-
 
 var conn =  connection(mysql,{
 
@@ -21,6 +22,28 @@ var conn =  connection(mysql,{
 
 app.use(conn);
 
+var queryHandler;
+var queryHandlerModule;
+switch(process.argv[2]){
+    case "1":
+        queryHandlerModule = require('./utils/Test1BigTableQueryHandler.js');
+        break;
+    case "2":
+        queryHandlerModule = require('./utils/Test1SmallTableQueryHandler.js');
+        break;
+    case "3":
+        queryHandlerModule = require('./utils/Test2BigTableQueryHandler.js');
+        break;
+    case "4":
+        queryHandlerModule = require('./utils/Test2SmallTablesQueryHandler.js');
+        break;
+}
+queryHandler = new queryHandlerModule()
+var wineObject = new wine(queryHandler)
+
+app.use(queryHandler)
+global.queryHandler = queryHandler
+
 app.configure(function () {
     app.set('port', process.env.PORT || 3000);
     app.use(express.logger('dev'));  /* 'default', 'short', 'tiny', 'dev' */
@@ -28,14 +51,14 @@ app.configure(function () {
     app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.get('/wines', wine.findAll);
-app.get('/wines/:id', wine.findById);
-app.post('/wines', wine.addWine);
-app.put('/wines/:id', wine.updateWine);
-app.delete('/wines/:id', wine.deleteWine);
-app.get('/wines/findbyear/:year', wine.findByYear);
-app.get('/wines/findbycountry/:country', wine.findByCountry);
-
+// app.get('/wines', wineObject.findAll);
+// app.get('/wines/:id', wineObject.findById);
+app.post('/getwines/', wineObject.find/*, queryHandler*/);
+app.post('/wines', wineObject.addWine);
+app.put('/wines', wineObject.updateWine);
+//app.delete('/wines/:id',wineObject.deleteWine);
+// app.get('/wines/findbyear/:year', wineObject.findByYear);
+// app.get('/wines/findbycountry/:country', wineObject.findByCountry);
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log("Express server listening on port " + app.get('port'));
