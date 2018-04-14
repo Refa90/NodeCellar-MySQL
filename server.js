@@ -1,9 +1,7 @@
 var express = require('express'),
     path = require('path'),
     http = require('http'),
-    //wine = require('./routes/wines'),
-    wine = require('./routes/wine')//,
-    //test1BigTableQueryHandler = require('./utils/Test1BigTableQueryHandler');
+    wine = require('./routes/wine')
 
 var connection  = require('express-myconnection');
 var mysql = require('mysql');
