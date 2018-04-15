@@ -4,7 +4,6 @@ class Test2SmallTablesQueryHandler{
     }
 
     select(wine, i){
-
         return format("select t1.name, t2.year, t2.grapes, t3.country, t3.region, t4.description, t4.picture \
                         from wine_test_21 as t1\
                              inner join wine_test_22 as t2\

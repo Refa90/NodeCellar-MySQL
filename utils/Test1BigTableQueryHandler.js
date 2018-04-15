@@ -6,7 +6,6 @@ class Test1BigTableQueryHandler{
     }
 
     select(wine, i){
-
         return format("select name{7}, year{8}, grapes{9}, country{10}, region{11}, description{12}, picture{13} \
                         from wine_test_1 \
                         where name0 = '{0}' and year1 = {1} and grapes2 = '{2}' and country3 = '{3}' and region4 = '{4}' and description0 = '{5}' \
