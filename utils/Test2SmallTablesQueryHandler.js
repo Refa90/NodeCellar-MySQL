@@ -49,4 +49,4 @@ class Test2SmallTablesQueryHandler{
     }
 }
 
-module.exports = Test1BigTableQueryHandler
+module.exports = Test2SmallTablesQueryHandler

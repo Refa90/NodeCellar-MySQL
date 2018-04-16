@@ -35,4 +35,4 @@ class Test2BigTableQueryHandler{
     }
 }
 
-module.exports = Test1BigTableQueryHandler
+module.exports = Test2BigTableQueryHandler
