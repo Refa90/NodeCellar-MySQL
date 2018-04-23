@@ -6,12 +6,35 @@ class Test1SmallTableQueryHandler{
     }
 
     select(wine, i){
-        return format("select name0, year0, grapes0, country0, region0, description0, picture0 \
-                        from wine_test_11 \
-                        where name0 = '{0}' and year1 = {1} and grapes2 = '{2}' and country3 = '{3}' and region4 = '{4}' and description0 = '{5}' \
-                            and picture1 = '{6}'",
-                        wine.name, wine.year, wine.grapes, wine.country, wine.region, wine.description, wine.picture
-                    )
+        // return format("select name0, year0, grapes0, country0, region0, description0, picture0 \
+        //                 from wine_test_11 \
+        //                 where name0 = '{0}' and year1 = {1} and grapes2 = '{2}' and country3 = '{3}' and region4 = '{4}' and description0 = '{5}' \
+        //                     and picture1 = '{6}'",
+        //                 wine.name, wine.year, wine.grapes, wine.country, wine.region, wine.description, wine.picture
+        //             )
+
+        var selectQuery = 'select '
+        var fromQuery = 'from '
+
+        if(Object.keys(wine).length > 7){
+            fromQuery = fromQuery + 'wine_test_1_v '
+        }else{
+            fromQuery = fromQuery + 'wine_test_11 '   
+        }
+
+        var whereQuery = 'where '
+
+        for (var key in wine){
+            selectQuery = selectQuery + ' ' + key + ', '
+            whereQuery = whereQuery + ' ' + key + ' = ' + wine[key] + ' and '
+        }
+
+        selectQuery = selectQuery.slice(0, -1)
+        whereQuery = whereQuery.slice(0, -5)
+
+        var query = selectQuery + fromQuery + whereQuery
+
+        return query
     }
 
     insert(wine){

@@ -6,13 +6,30 @@ class Test1BigTableQueryHandler{
     }
 
     select(wine, i){
-        return format("select name{7}, year{8}, grapes{9}, country{10}, region{11}, description{12}, picture{13} \
-                        from wine_test_1 \
-                        where name0 = '{0}' and year1 = {1} and grapes2 = '{2}' and country3 = '{3}' and region4 = '{4}' and description0 = '{5}' \
-                            and picture1 = '{6}'",
-                        wine.name, wine.year, wine.grapes, wine.country, wine.region, wine.description, wine.picture, 
-                        (i % 5), ((i + 1) % 5),((i + 2) % 5),((i + 3) % 5),((i + 4) % 5),((i + 5) % 5),((i + 6) % 5)
-                    )
+        // return format("select name{7}, year{8}, grapes{9}, country{10}, region{11}, description{12}, picture{13} \
+        //                 from wine_test_1 \
+        //                 where name0 = '{0}' and year1 = {1} and grapes2 = '{2}' and country3 = '{3}' and region4 = '{4}' and description0 = '{5}' \
+        //                     and picture1 = '{6}'",
+        //                 wine.name, wine.year, wine.grapes, wine.country, wine.region, wine.description, wine.picture, 
+        //                 (i % 5), ((i + 1) % 5),((i + 2) % 5),((i + 3) % 5),((i + 4) % 5),((i + 5) % 5),((i + 6) % 5)
+        //             )
+
+        var selectQuery = 'select '
+        var fromQuery = 'from wine_test_1 '
+        var whereQuery = 'where '
+
+        for (var key in wine){
+            selectQuery = selectQuery + ' ' + key + ', '
+            whereQuery = whereQuery + ' ' + key + ' = ' + wine[key] + ' and '
+        }
+
+        selectQuery = selectQuery.slice(0, -1)
+        whereQuery = whereQuery.slice(0, -5)
+
+        var query = selectQuery + fromQuery + whereQuery
+
+        return query
+
     }
 
     insert(wine){

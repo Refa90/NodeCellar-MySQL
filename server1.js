@@ -22,20 +22,22 @@ app.use(conn);
 
 var queryHandler;
 var queryHandlerModule;
-switch(process.argv[2]){
-    case "1":
-        queryHandlerModule = require('./utils/Test1BigTableQueryHandler.js');
-        break;
-    case "2":
-        queryHandlerModule = require('./utils/Test1SmallTableQueryHandler.js');
-        break;
-    case "3":
-        queryHandlerModule = require('./utils/Test2BigTableQueryHandler.js');
-        break;
-    case "4":
-        queryHandlerModule = require('./utils/Test2SmallTablesQueryHandler.js');
-        break;
-}
+// switch(process.argv[2]){
+//     case "1":
+//         queryHandlerModule = require('./utils/Test1BigTableQueryHandler.js');
+//         break;
+//     case "2":
+//         queryHandlerModule = require('./utils/Test1SmallTableQueryHandler.js');
+//         break;
+//     case "3":
+//         queryHandlerModule = require('./utils/Test2BigTableQueryHandler.js');
+//         break;
+//     case "4":
+//         queryHandlerModule = require('./utils/Test2SmallTablesQueryHandler.js');
+//         break;
+// }
+
+queryHandlerModule = require('./utils/Test1BigTableQueryHandler.js');
 queryHandler = new queryHandlerModule()
 var wineObject = new wine(queryHandler)
 
@@ -43,7 +45,7 @@ app.use(queryHandler)
 global.queryHandler = queryHandler
 
 app.configure(function () {
-    app.set('port', process.env.PORT || 3000);
+    app.set('port', 3001);
     app.use(express.logger('dev'));  /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser()),
     app.use(express.static(path.join(__dirname, 'public')));

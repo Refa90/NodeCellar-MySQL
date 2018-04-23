@@ -4,12 +4,28 @@ class Test2BigTableQueryHandler{
     }
 
     select(wine, i){
-        return format("select name, year, grapes, country, region, description, picture \
-                        from wine_test_2 \
-                        where name = '{0}' and year = {1} and grapes = '{2}' and country = '{3}' and region = '{4}' and description = '{5}' \
-                            and picture = '{6}'",
-                        wine.name, wine.year, wine.grapes, wine.country, wine.region, wine.description, wine.picture
-                    )
+        // return format("select name, year, grapes, country, region, description, picture \
+        //                 from wine_test_2 \
+        //                 where name = '{0}' and year = {1} and grapes = '{2}' and country = '{3}' and region = '{4}' and description = '{5}' \
+        //                     and picture = '{6}'",
+        //                 wine.name, wine.year, wine.grapes, wine.country, wine.region, wine.description, wine.picture
+        //             )
+
+        var selectQuery = 'select '
+        var fromQuery = 'from wine_test_2 '
+        var whereQuery = 'where '
+
+        for (var key in wine){
+            selectQuery = selectQuery + ' ' + key + ', '
+            whereQuery = whereQuery + ' ' + key + ' = ' + wine[key] + ' and '
+        }
+
+        selectQuery = selectQuery.slice(0, -1)
+        whereQuery = whereQuery.slice(0, -5)
+
+        var query = selectQuery + fromQuery + whereQuery
+
+        return query
     }
 
     insert(wine){
@@ -35,4 +51,4 @@ class Test2BigTableQueryHandler{
     }
 }
 
-module.exports = Test1BigTableQueryHandler
+module.exports = Test2BigTableQueryHandler
