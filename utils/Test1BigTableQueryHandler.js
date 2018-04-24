@@ -15,7 +15,7 @@ class Test1BigTableQueryHandler{
         //             )
 
         var selectQuery = 'select '
-        var fromQuery = 'from wine_test_1 '
+        var fromQuery = ' from wine_test_1 '
         var whereQuery = 'where '
 
         for (var key in wine){
