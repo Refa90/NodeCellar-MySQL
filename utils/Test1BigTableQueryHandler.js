@@ -23,7 +23,7 @@ class Test1BigTableQueryHandler{
             whereQuery = whereQuery + ' ' + key + ' = ' + wine[key] + ' and '
         }
 
-        selectQuery = selectQuery.slice(0, -1)
+        selectQuery = selectQuery.slice(0, -2)
         whereQuery = whereQuery.slice(0, -5)
 
         var query = selectQuery + fromQuery + whereQuery
